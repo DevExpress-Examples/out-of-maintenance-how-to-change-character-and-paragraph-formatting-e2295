@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="xslt/main.xslt"?>
+
+<page csshref="./i/styles.css" helplinksuffix="XtraRichEdit" videotags="XtraRichEdit,Training">
+
+  <header titleimage="./i/XtraRichEdit-title.gif">
+    <para>The <bold>XtraRichEdit Suite</bold> enables you to create applications with rich text editing functionality. You simply drop the control onto a form and immediately have access to a text editor with an intuitive user interface. To ensure superior performance, the editor uses a multithreaded formatting. This technique provides significant improvement in application response times which makes your solution even more appealing for the end-user.</para>
+  </header>
+
+  <detailtable imagesrc="./i/XtraRichEdit.png">
+  <demolist>
+    <demolistentry caption="XtraRichEdit Main Demo" imgsrc="./i/demo.gif" demohref="STARTMODULE_\XtraRichEdit\Bin\RichEditMainDemo.exe">
+      Leads you through key features available within the <bold>XtraRichEdit Suite</bold>.
+    </demolistentry>
+
+  </demolist>
+  </detailtable>
+</page>
