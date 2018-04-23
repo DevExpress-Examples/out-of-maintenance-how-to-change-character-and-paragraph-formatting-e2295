@@ -1,0 +1,1658 @@
+﻿<UserControl x:Class="AgRichEditTemplate.MainPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:dxre="http://schemas.devexpress.com/winfx/2008/xaml/richedit" xmlns:dxreex="http://schemas.devexpress.com/winfx/2008/xaml/richeditextensions" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxmnu="http://schemas.devexpress.com/winfx/2008/xaml/agmenu">
+
+    <UserControl.Resources>
+        <!--ButtonStyle-->
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="Background" Value="#FF1F3B53" />
+            <Setter Property="Foreground" Value="#FF000000" />
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFA3AEB9" Offset="0" />
+                        <GradientStop Color="#FF8399A9" Offset="0.375" />
+                        <GradientStop Color="#FF718597" Offset="0.375" />
+                        <GradientStop Color="#FF617584" Offset="1" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00.1" To="MouseOver" />
+                                        <VisualTransition GeneratedDuration="00:00:00.1" To="Pressed" />
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="gs1" Storyboard.TargetProperty="Color" To="#FFCECECE" />
+                                            <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="gs2" Storyboard.TargetProperty="Color" To="#FFB3B3B3" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="gs1" Storyboard.TargetProperty="Color" To="#FF939393" />
+                                            <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="gs2" Storyboard.TargetProperty="Color" To="#FF939393" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border CornerRadius="8,8,8,8">
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#00EDEDED" x:Name="gs1" />
+                                        <GradientStop Color="#00E1E1E1" x:Name="gs2" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--AgColumnCountValueEditorControl-->
+        <Style TargetType="dxreex:AgColumnCountValueEditorControl">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="dxreex:AgColumnCountValueEditorControl">
+                        <Border Background="Black" CornerRadius="4">
+                            <Border Background="#FF7A7A7A" CornerRadius="3" Margin="1">
+                                <Grid Margin="3,20,3,6">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="1" Background="#33000000" Margin="2,2,0,0" />
+                                    <Border Grid.Column="1" Margin="0,0,2,2" BorderBrush="Black" BorderThickness="1" Background="White">
+                                        <StackPanel HorizontalAlignment="Center" x:Name="Columns" VerticalAlignment="Center" Orientation="Horizontal" Margin="10">
+                                            <Line Stroke="Black" x:Name="Column1" StrokeThickness="1000" StrokeDashArray="0.001,0.002" Margin="1" X1="0" Y1="0" X2="0" Y2="300" Height="70" />
+                                            <Line Stroke="Black" x:Name="Column2" StrokeThickness="1000" StrokeDashArray="0.001,0.002" Margin="1" X1="0" Y1="0" X2="0" Y2="300" Height="70" />
+                                            <Line Stroke="Black" x:Name="Column3" StrokeThickness="1000" StrokeDashArray="0.001,0.002" Margin="1" X1="0" Y1="0" X2="0" Y2="300" Height="70" />
+                                            <Line Stroke="Black" x:Name="Column4" StrokeThickness="1000" StrokeDashArray="0.001,0.002" Margin="1" X1="0" Y1="0" X2="0" Y2="300" Height="70" />
+                                            <Line Stroke="Black" x:Name="Column5" StrokeThickness="1000" StrokeDashArray="0.001,0.002" Margin="1" X1="0" Y1="0" X2="0" Y2="300" Height="70" />
+                                            <Line Stroke="Black" x:Name="Column6" StrokeThickness="1000" StrokeDashArray="0.001,0.002" Margin="1" X1="0" Y1="0" X2="0" Y2="300" Height="70" />
+                                            <Line Stroke="Black" x:Name="Column7" StrokeThickness="1000" StrokeDashArray="0.001,0.002" Margin="1" X1="0" Y1="0" X2="0" Y2="300" Height="70" />
+                                            <Line Stroke="Black" x:Name="Column8" StrokeThickness="1000" StrokeDashArray="0.001,0.002" Margin="1" X1="0" Y1="0" X2="0" Y2="40" Height="70" VerticalAlignment="Top" />
+
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Button Grid.Column="0" Margin="0,5,3,5" Height="14" Width="14" x:Name="MinusButton" Style="{StaticResource ButtonStyle}">
+                                        <Grid>
+                                            <Rectangle Fill="White" Width="8" Height="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Button>
+                                    <Button Grid.Column="2" Margin="1,5,0,5" Height="14" Width="14" x:Name="PlusButton" Style="{StaticResource ButtonStyle}">
+                                        <Grid Background="Transparent">
+                                            <Rectangle Fill="White" Width="8" Height="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <Rectangle Fill="White" Width="2" Height="8" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Button>
+                                    <TextBlock x:Name="CCLabel" Margin="0,5,0,0" Foreground="White" FontSize="11" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Count: 1" />
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--AgEditCursor-->
+        <Style TargetType="dxreex:AgEditCursor">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="dxreex:AgEditCursor">
+                        <Grid>
+                            <Grid.Resources>
+                                <Storyboard x:Name="Animate">
+                                    <!--<DoubleAnimation Duration="0:0:1" Storyboard.TargetName="Caret" Storyboard.TargetProperty="Opacity" To="0.5" AutoReverse="True" RepeatBehavior="Forever"/>-->
+                                    <ColorAnimation Duration="0:0:1" Storyboard.TargetName="c1" Storyboard.TargetProperty="Color" To="#FFDA9869" AutoReverse="True" RepeatBehavior="Forever" />
+                                    <ColorAnimation Duration="0:0:0.5" Storyboard.TargetName="c2" Storyboard.TargetProperty="Color" To="#FF5CCA8A" AutoReverse="True" RepeatBehavior="Forever" />
+                                    <ColorAnimation Duration="0:0:2" Storyboard.TargetName="c3" Storyboard.TargetProperty="Color" To="#FF7F2B70" AutoReverse="True" RepeatBehavior="Forever" />
+                                </Storyboard>
+                            </Grid.Resources>
+                            <Path Stretch="Fill" x:Name="Caret" Data="F1 M 303.537,190.041C 303.299,189.802 303.023,189.64 302.821,189.639L 302.821,189.639C 302.649,189.639 302.531,189.755 302.531,190.041 Z M 287.108,192.514L 288.092,195.957L 289.063,199.355L 301.855,212.148C 302.296,212.588 303.017,212.588 303.457,212.148L 307.519,208.084C 307.96,207.644 307.96,206.925 307.519,206.483L 294.726,193.691L 291.717,192.831L 287.887,191.738C 287.783,191.708 287.688,191.694 287.6,191.694L 287.6,191.694C 287.182,191.694 286.968,192.019 287.108,192.514 Z M 290.196,198.223L 289.063,194.824L 290.196,193.691L 293.593,194.824L 303.788,205.019L 302.655,206.152L 292.862,196.359C 292.642,196.136 292.281,196.136 292.06,196.359L 291.728,196.688C 291.509,196.91 291.509,197.271 291.728,197.491L 301.523,207.284L 300.39,208.417L 290.196,198.223 Z " Height="27.187" HorizontalAlignment="Left" Margin="4.027,4.028,0,8.785" Width="27.186">
+                                <Path.Fill>
+                                    <LinearGradientBrush StartPoint="0.320022,-0.00943822" EndPoint="0.658516,0.948759">
+                                        <GradientStop x:Name="c1" Color="#FFAA98C9" Offset="0" />
+                                        <GradientStop x:Name="c2" Color="#FF5C4A8A" Offset="0.510986" />
+                                        <GradientStop x:Name="c3" Color="#FF3F2B70" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Path.Fill>
+                            </Path>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--AgMenuItemContentPresenter-->
+        <ControlTemplate x:Key="ContentPresenterTemplate" TargetType="dxmnu:AgMenuItemContentPresenter">
+            <Grid x:Name="ElementRoot">
+                <Grid x:Name="ElementCheckAreaContainer">
+                    <Grid x:Name="ElementCheckArea">
+                        <Border Height="Auto" Margin="0,1,0,1" x:Name="ElementCheck" Width="Auto" CornerRadius="4,4,4,4" Padding="1,1,1,1">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                    <GradientStop Color="#7FFFFFFF" />
+                                    <GradientStop Color="#00FFFFFF" Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Border Height="Auto" Width="Auto" CornerRadius="3,3,3,3" Padding="1,1,1,1">
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                        <GradientStop Color="#FF707070" Offset="0" />
+                                        <GradientStop Color="#FF929292" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Border Height="Auto" Width="Auto" CornerRadius="2,2,2,2" Padding="3,3,3,3">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                            <GradientStop Color="#FFBCBCBD" />
+                                            <GradientStop Color="#FFCFCFCE" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                            </Border>
+                        </Border>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="ElementIconAreaContainer">
+                    <Grid x:Name="ElementIconArea">
+                        <ContentControl x:Name="ElementIcon" Content="{TemplateBinding Icon}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                    </Grid>
+                </Grid>
+                <ContentControl Content="{TemplateBinding Header}" Margin="6,6,6,6" />
+                <ContentControl x:Name="ElementContent" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="1,3,1,3" VerticalAlignment="Center" />
+            </Grid>
+        </ControlTemplate>
+        <!--AgPopupMenuStyle-->
+        <Style TargetType="dxmnu:AgPopupMenu" x:Key="AgPopupMenuStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="dxmnu:AgPopupMenu">
+                        <Grid>
+                            <Grid>
+                                <Grid.Effect>
+                                    <DropShadowEffect Color="Black" Opacity="0.4" BlurRadius="4" ShadowDepth="4" />
+                                </Grid.Effect>
+                                <Border Background="#FF6E6E6E" CornerRadius="3,3,3,3" />
+                                <!--<dxmnu:AgSubMenuDefaultStyleHelper Background="White"/>-->
+                                <Border Background="#FFFFFFFF" CornerRadius="2,2,2,2" Margin="1,1,1,1">
+                                    <dxmnu:AgMenuScrollViewer x:Name="ItemsPresenterContainer" ScrollButtonClickMode="{TemplateBinding ScrollButtonClickMode}" Margin="0,0,0,1">
+                                        <ItemsPresenter />
+                                    </dxmnu:AgMenuScrollViewer>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--MenuTemplate-->
+        <Style x:Key="MenuTemplate" TargetType="dxmnu:AgMenu">
+            <Setter Property="Templates">
+                <Setter.Value>
+                    <dxmnu:AgMenuTemplateList>
+                        <dxmnu:AgMenuTemplateListItem>
+                            <dxmnu:AgMenuTemplateListItem.Template>
+                                <ControlTemplate TargetType="dxmnu:AgMenu">
+                                    <Border Height="Auto" Width="Auto" CornerRadius="4,4,4,4" Padding="1,0,3,0">
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                                <GradientStop Color="#FFDEDEDE" Offset="0" />
+                                                <GradientStop Color="#FFF1F1F1" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <ItemsPresenter />
+                                    </Border>
+                                </ControlTemplate>
+                            </dxmnu:AgMenuTemplateListItem.Template>
+                        </dxmnu:AgMenuTemplateListItem>
+                    </dxmnu:AgMenuTemplateList>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerTemplates">
+                <Setter.Value>
+                    <dxmnu:AgMenuTemplateList>
+                        <dxmnu:AgMenuTemplateListItem Key="AgMenuItem">
+                            <dxmnu:AgMenuTemplateListItem.Template>
+                                <ControlTemplate TargetType="dxmnu:AgMenuItem">
+                                    <Grid x:Name="ElementRoot">
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup x:Name="CommonStates">
+                                                <VisualState x:Name="Normal">
+                                                    <Storyboard>
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="Hot">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.01" Storyboard.TargetName="hover" Storyboard.TargetProperty="Opacity" To="1" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="Pressed">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.01" Storyboard.TargetName="hover" Storyboard.TargetProperty="Opacity" To="1" />
+                                                        <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="Gradient1" Storyboard.TargetProperty="Color" To="#7FFFFFFF" />
+                                                        <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="Gradient2" Storyboard.TargetProperty="Color" To="#00FFFFFF" />
+                                                        <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="Gradient3" Storyboard.TargetProperty="Color" To="#FF707070" />
+                                                        <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="Gradient4" Storyboard.TargetProperty="Color" To="#FF929292" />
+                                                        <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="Gradient5" Storyboard.TargetProperty="Color" To="#FFA9A9AA" />
+                                                        <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="Gradient6" Storyboard.TargetProperty="Color" To="#FFBABAB9" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="DroppedDown">
+                                                    <Storyboard>
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="DroppedDownSelected">
+                                                    <Storyboard>
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="Disabled">
+                                                    <Storyboard>
+                                                        <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="disableElement" Storyboard.TargetProperty="Color" To="#99999999" />
+                                                        <!--<DoubleAnimation Duration="0:0:0.01" Storyboard.TargetName="disabled" Storyboard.TargetProperty="Opacity" To="1"/>-->
+                                                    </Storyboard>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                        <dxmnu:AgMenuItemContentPresenter x:Name="ElementContentPresenter" CheckAreaVisibility="{TemplateBinding CheckAreaVisibility}" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" Header="{TemplateBinding Icon}" Template="{StaticResource ContentPresenterTemplate}">
+                                            <dxmnu:AgMenuItemContentPresenter.OpacityMask>
+                                                <SolidColorBrush x:Name="disableElement" Color="#FFFFFFFF" />
+                                            </dxmnu:AgMenuItemContentPresenter.OpacityMask>
+                                            <dxmnu:AgMenuItemContentPresenter.Icon>
+                                                <Border Height="Auto" Margin="0,1,0,1" x:Name="hover" Width="Auto" Padding="1,1,1,1" CornerRadius="4,4,4,4" Opacity="0">
+                                                    <Border.Background>
+                                                        <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                                            <GradientStop x:Name="Gradient1" Color="#19000000" />
+                                                            <GradientStop x:Name="Gradient2" Color="#00000000" Offset="1" />
+                                                        </LinearGradientBrush>
+                                                    </Border.Background>
+                                                    <Border Height="Auto" Width="Auto" CornerRadius="3,3,3,3" Padding="1,1,1,1">
+                                                        <Border.Background>
+                                                            <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                                                <GradientStop x:Name="Gradient3" Color="#FF7E7E7E" />
+                                                                <GradientStop x:Name="Gradient4" Color="#FF9D9D9D" Offset="1" />
+                                                            </LinearGradientBrush>
+                                                        </Border.Background>
+                                                        <Border Height="Auto" Width="Auto" CornerRadius="2,2,2,2" Padding="3,3,3,3">
+                                                            <Border.Background>
+                                                                <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                                                    <GradientStop x:Name="Gradient5" Color="#FFDBDBDB" />
+                                                                    <GradientStop x:Name="Gradient6" Color="#FFF7F7F7" Offset="1" />
+                                                                </LinearGradientBrush>
+                                                            </Border.Background>
+                                                        </Border>
+                                                    </Border>
+                                                </Border>
+                                            </dxmnu:AgMenuItemContentPresenter.Icon>
+                                        </dxmnu:AgMenuItemContentPresenter>
+                                        <Border Height="Auto" Margin="0,1,0,1" x:Name="disabled" Width="Auto" Padding="1,1,1,1" CornerRadius="4,4,4,4" Opacity="0" OpacityMask="Yellow" IsHitTestVisible="False">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                                    <GradientStop Color="#00000000" />
+                                                    <GradientStop Color="#19000000" Offset="0.5" />
+                                                    <GradientStop Color="#00000000" Offset="1" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                        <Popup x:Name="ElementPopup" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </dxmnu:AgMenuTemplateListItem.Template>
+                        </dxmnu:AgMenuTemplateListItem>
+                        <dxmnu:AgMenuTemplateListItem Key="AgMenuSeparator">
+                            <dxmnu:AgMenuTemplateListItem.Template>
+                                <ControlTemplate TargetType="dxmnu:AgMenuSeparator">
+                                    <Grid Height="Auto" Width="2" Margin="2,4,1,4" x:Name="separator2">
+                                        <Border x:Name="separator1" Width="1" HorizontalAlignment="Left">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                                    <GradientStop Color="#FF939393" />
+                                                    <GradientStop Color="#FFC1C1C1" Offset="1" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                        <Border HorizontalAlignment="Right" Width="1">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#19FDFDFD" />
+                                                    <GradientStop Color="#19FDFDFD" Offset="1" />
+                                                    <GradientStop Color="#FFFDFDFD" Offset="0.5" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Grid>
+                                </ControlTemplate>
+                            </dxmnu:AgMenuTemplateListItem.Template>
+                        </dxmnu:AgMenuTemplateListItem>
+                    </dxmnu:AgMenuTemplateList>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="SubMenuStyle" Value="{StaticResource AgPopupMenuStyle}" />
+            <Setter Property="CheckAreaDisplayMode" Value="ReplaceIcon" />
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <dxmnu:AgMenuPanel IsMultiLine="True" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--AgMenuItemHorizontalContentPresenterTemplate-->
+        <ControlTemplate x:Key="AgMenuItemHorizontalContentPresenterTemplate" TargetType="dxmnu:AgMenuItemContentPresenter">
+            <Grid x:Name="ElementRoot" Margin="{TemplateBinding Padding}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid x:Name="ElementIconCheckAreaContainer" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center">
+                    <Grid x:Name="ElementIconCheckArea">
+                        <Grid x:Name="ElementIconAreaContainer">
+                            <Grid x:Name="ElementIconArea">
+                                <ContentControl x:Name="ElementIcon" OpacityMask="{TemplateBinding OpacityMask}" Content="{TemplateBinding Icon}" Margin="0,1,4,1" />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <ContentControl OpacityMask="{TemplateBinding OpacityMask}" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" FontSize="13" Foreground="{TemplateBinding Foreground}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" />
+                <ContentControl x:Name="ElementContent" OpacityMask="{TemplateBinding OpacityMask}" Content="{TemplateBinding Content}" FontSize="13" ContentTemplate="{TemplateBinding ContentTemplate}" Grid.Column="1" Grid.Row="0" />
+            </Grid>
+        </ControlTemplate>
+        <!--MainMenuTemplate-->
+        <Style TargetType="dxmnu:AgMenu" x:Key="MainMenuTemplate">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Templates">
+                <Setter.Value>
+                    <dxmnu:AgMenuTemplateList>
+                        <dxmnu:AgMenuTemplateListItem Key="Horizontal">
+                            <dxmnu:AgMenuTemplateListItem.Template>
+                                <ControlTemplate TargetType="dxmnu:AgMenu">
+                                    <Border CornerRadius="5,5,5,5" Padding="0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border x:Name="ElementEmptyArea" CornerRadius="0,4,4,0" Grid.Column="1">
+                                            </Border>
+                                            <ItemsPresenter HorizontalAlignment="Left" />
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </dxmnu:AgMenuTemplateListItem.Template>
+                        </dxmnu:AgMenuTemplateListItem>
+                    </dxmnu:AgMenuTemplateList>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerTemplates">
+                <Setter.Value>
+                    <dxmnu:AgMenuTemplateList>
+                        <dxmnu:AgMenuTemplateListItem Key="AgMenuItem;Horizontal">
+                            <dxmnu:AgMenuTemplateListItem.Template>
+                                <ControlTemplate TargetType="dxmnu:AgMenuItem">
+                                    <Grid x:Name="ElementRoot">
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup x:Name="CommonStates">
+                                                <VisualState x:Name="Normal">
+                                                    <Storyboard>
+                                                        <!--<ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="ElementBackgroundGradient1" Storyboard.TargetProperty="Color" To="Transparent"/>
+                                                    <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="ElementBackgroundGradient2" Storyboard.TargetProperty="Color" To="Transparent"/>-->
+                                                        <DoubleAnimation Duration="0:0:0.01" Storyboard.TargetName="DropBorder" Storyboard.TargetProperty="Opacity" To="0" />
+                                                        <DoubleAnimation Duration="0:0:0.01" Storyboard.TargetName="HotBorder" Storyboard.TargetProperty="Opacity" To="0" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="Hot">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.01" Storyboard.TargetName="HotBorder" Storyboard.TargetProperty="Opacity" To="1" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="DroppedDown">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.01" Storyboard.TargetName="DropBorder" Storyboard.TargetProperty="Opacity" To="1" />
+                                                        <ObjectAnimationUsingKeyFrames Duration="0:0:0.01" Storyboard.TargetName="ElementContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.01">
+                                                                <DiscreteObjectKeyFrame.Value>
+                                                                    <SolidColorBrush Color="#FF151515" />
+                                                                </DiscreteObjectKeyFrame.Value>
+                                                            </DiscreteObjectKeyFrame>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="DroppedDownSelected">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.01" Storyboard.TargetName="DropBorder" Storyboard.TargetProperty="Opacity" To="1" />
+                                                        <ObjectAnimationUsingKeyFrames Duration="0:0:0.01" Storyboard.TargetName="ElementContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.01">
+                                                                <DiscreteObjectKeyFrame.Value>
+                                                                    <SolidColorBrush Color="#FF151515" />
+                                                                </DiscreteObjectKeyFrame.Value>
+                                                            </DiscreteObjectKeyFrame>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="Disabled">
+                                                    <Storyboard>
+                                                        <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="disableElement" Storyboard.TargetProperty="Color" To="#99999999" />
+
+                                                        <!--<DoubleAnimation Duration="0:0:0.01" Storyboard.TargetName="ElementContentPresenter" Storyboard.TargetProperty="Opacity" To=".4"/>-->
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="Selected">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.01" Storyboard.TargetName="DropBorder" Storyboard.TargetProperty="Opacity" To="1" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                        <Border Background="#FF9D9D9D" CornerRadius="3,3,3,3" Margin="0,1,1,1" x:Name="HotBorder" Width="Auto" Grid.ColumnSpan="1" Opacity="0" />
+                                        <Border Background="#FFFFFFFF" CornerRadius="3,3,0,0" x:Name="DropBorder" Width="Auto" Opacity="0" Margin="0,1,1,1" />
+                                        <Border HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="1" CornerRadius="0,0,0,0">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <dxmnu:AgHorizontalMenuItemDefaultStyleHelper Position="{TemplateBinding Position}" />
+                                                <Border x:Name="ElementLeftBorder" Width="1" VerticalAlignment="Stretch" Grid.Column="0">
+                                                </Border>
+                                                <dxmnu:AgMenuItemContentPresenter x:Name="ElementContentPresenter" Grid.Column="1" Foreground="{TemplateBinding Foreground}" CheckAreaVisibility="{TemplateBinding CheckAreaVisibility}" Header="{TemplateBinding Header}" HeaderTemplate="{TemplateBinding HeaderTemplate}" Icon="{TemplateBinding Icon}" IsRadioItem="{TemplateBinding IsRadioItem}" MenuOrientation="{TemplateBinding MenuOrientation}" Padding="12,2,12,2" Template="{StaticResource AgMenuItemHorizontalContentPresenterTemplate}" VerticalAlignment="Center" ViewStyle="{TemplateBinding ViewStyle}" Position="{TemplateBinding Position}">
+                                                    <dxmnu:AgMenuItemContentPresenter.OpacityMask>
+                                                        <SolidColorBrush x:Name="disableElement" Color="#FFFFFFFF" />
+                                                    </dxmnu:AgMenuItemContentPresenter.OpacityMask>
+                                                </dxmnu:AgMenuItemContentPresenter>
+                                                <Border Width="1" VerticalAlignment="Stretch" Grid.Column="2" HorizontalAlignment="Right">
+                                                </Border>
+                                            </Grid>
+                                        </Border>
+                                        <Popup x:Name="ElementPopup" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </dxmnu:AgMenuTemplateListItem.Template>
+                        </dxmnu:AgMenuTemplateListItem>
+                    </dxmnu:AgMenuTemplateList>
+
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--ZoomComboBoxToggleButtonTemplate-->
+        <Style TargetType="ToggleButton" x:Key="ZoomComboBoxToggleButtonStyle">
+            <Setter Property="Background" Value="{x:Null}" />
+            <Setter Property="Foreground" Value="#FF000000" />
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFA3AEB9" Offset="0" />
+                        <GradientStop Color="#FF8399A9" Offset="0.375" />
+                        <GradientStop Color="#FF718597" Offset="0.375" />
+                        <GradientStop Color="#FF617584" Offset="1" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00.1" To="MouseOver" />
+                                        <VisualTransition GeneratedDuration="00:00:00.1" To="Pressed" />
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <!--<ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="gs1" Storyboard.TargetProperty="Color" To="#FF7A7A7A"/>
+                                        <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="gs2" Storyboard.TargetProperty="Color" To="#FF646464"/>-->
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <!--<ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="gs1" Storyboard.TargetProperty="Color" To="#FF595959"/>
+                                        <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="gs2" Storyboard.TargetProperty="Color" To="#FF595959"/>-->
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <!--<ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="gs1" Storyboard.TargetProperty="Color" To="#FF595959"/>
+                                        <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="gs2" Storyboard.TargetProperty="Color" To="#FF595959"/>-->
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid>
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop x:Name="gs1" />
+                                        <GradientStop x:Name="gs2" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}" />
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--ZoomComboBox-->
+        <Style TargetType="dxreex:ZoomComboBox">
+            <Setter Property="Padding" Value="2,2,2,2" />
+            <!--<Setter Property="Background" Value="White"/>-->
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="TabNavigation" Value="Once" />
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White" Offset="0" />
+                        <GradientStop Color="White" Offset="1" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="dxreex:ZoomComboBox">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00.1" />
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused" />
+                                    <VisualState x:Name="FocusedDropDown">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Duration="00:00:00" Storyboard.TargetName="PopupBorder" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="ContentPresenterBorder">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ToggleButton x:Name="DropDownToggle" Grid.Column="1" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Stretch" Style="{StaticResource ZoomComboBoxToggleButtonStyle}" Cursor="Hand">
+                                        <Grid HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="-1">
+                                            <Path Stretch="Fill" Data="F1 M 384,282L 391,282L 388,287L 387,287L 384,282 Z " Height="5" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="7">
+                                                <Path.Fill>
+                                                    <SolidColorBrush x:Name="ArrowBackground" Color="#FF656565" />
+                                                </Path.Fill>
+                                            </Path>
+                                        </Grid>
+                                    </ToggleButton>
+                                    <TextBox x:Name="Editor" Margin="{TemplateBinding Padding}" Background="{x:Null}" Foreground="#FF656565" MaxLength="4">
+                                        <TextBox.Template>
+                                            <ControlTemplate TargetType="TextBox">
+                                                <Grid x:Name="RootElement">
+                                                    <Border x:Name="ContentElement" />
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </TextBox.Template>
+                                    </TextBox>
+                                </Grid>
+                            </Border>
+                            <Popup x:Name="Popup">
+                                <Grid>
+                                    <Grid>
+                                        <Grid.Effect>
+                                            <DropShadowEffect Color="Black" Opacity="0.4" BlurRadius="4" ShadowDepth="4" />
+                                        </Grid.Effect>
+                                        <Border Background="#FF6E6E6E" CornerRadius="3,3,3,3" />
+                                        <Border x:Name="PopupBorder" Background="#FFFFFFFF" CornerRadius="2,2,2,2" Margin="1,1,1,1">
+                                            <ScrollViewer x:Name="ScrollViewer" BorderThickness="0" Padding="1" dx:StyleManager.ApplyApplicationTheme="True">
+                                                <ItemsPresenter />
+                                            </ScrollViewer>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </Popup>
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--ListBoxItemStyle-->
+        <Style TargetType="ListBoxItem" x:Key="ListBoxItemStyle">
+            <Setter Property="Padding" Value="4,1,4,1" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Top" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#FF000000" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="TabNavigation" Value="Local" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid Background="{TemplateBinding Background}" x:Name="RootElement">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="fillColor" Storyboard.TargetProperty="Opacity" Duration="0" To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="RootElement" Storyboard.TargetProperty="Opacity" Duration="0" To="0.35" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselected" />
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="fillColor2" Storyboard.TargetProperty="Opacity" Duration="0" To="1" />
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="contentPresenter" Storyboard.TargetProperty="Foreground" Duration="0">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="White" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused" />
+                                    <VisualState x:Name="Unfocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Rectangle x:Name="fillColor" Opacity="0" Margin="0" IsHitTestVisible="False" RadiusX="2" RadiusY="2">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                        <GradientStop Color="#FFBDD9F8" />
+                                        <GradientStop Color="#FFD2E5FA" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle x:Name="fillColor2" Opacity="0" Margin="0" IsHitTestVisible="False" RadiusX="2" RadiusY="2">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                        <GradientStop Color="#FF6FA2DD" />
+                                        <GradientStop Color="#FF8FB8E5" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <ContentControl x:Name="contentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" HorizontalAlignment="Left" Margin="{TemplateBinding Padding}" Foreground="{TemplateBinding Foreground}" />
+                            <Rectangle x:Name="FocusVisualElement" Stroke="#FF6DBDD1" StrokeThickness="1" RadiusX="1" RadiusY="1" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--AgColumnCountPicker-->
+        <Style TargetType="dxreex:AgColumnCountPicker">
+            <Setter Property="Background" Value="#FF1F3B53" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="TabNavigation" Value="Once" />
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFA3AEB9" Offset="0" />
+                        <GradientStop Color="#FF8399A9" Offset="0.375" />
+                        <GradientStop Color="#FF718597" Offset="0.375" />
+                        <GradientStop Color="#FF617584" Offset="1" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="dxreex:AgColumnCountPicker">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver" />
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="00:00:00" Storyboard.TargetName="DisabledVisualElement" Storyboard.TargetProperty="(UIElement.Opacity)" To=".55" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="00:00:00" Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="(UIElement.Opacity)" To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused" />
+                                    <VisualState x:Name="FocusedDropDown">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Duration="00:00:00" Storyboard.TargetName="PopupBorder" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="ContentPresenterBorder">
+                                <Grid>
+                                    <ToggleButton x:Name="DropDownToggle" dx:StyleManager.ApplyApplicationTheme="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" HorizontalContentAlignment="Right">
+                                        <Path x:Name="BtnArrow" Height="4" Width="8" Stretch="Uniform" Data="F1 M 301.14,-189.041L 311.57,-189.041L 306.355,-182.942L 301.14,-189.041 Z " Margin="0,0,6,0" HorizontalAlignment="Right">
+                                            <Path.Fill>
+                                                <SolidColorBrush x:Name="BtnArrowColor" Color="#FF333333" />
+                                            </Path.Fill>
+                                        </Path>
+                                    </ToggleButton>
+                                    <Grid Margin="{TemplateBinding Padding}" HorizontalAlignment="Left">
+                                        <dxre:AgDropDownButtonToggleButton x:Name="ElementToggleButton" />
+                                        <ContentControl IsHitTestVisible="False" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" VerticalAlignment="Center">
+                                        </ContentControl>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                            <Border Height="Auto" Margin="0,1,0,1" x:Name="DisabledVisualElement" Width="Auto" Padding="1,1,1,1" CornerRadius="4,4,4,4" Opacity="0" OpacityMask="Yellow" IsHitTestVisible="False">
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                        <GradientStop Color="#00000000" />
+                                        <GradientStop Color="#19000000" Offset="0.5" />
+                                        <GradientStop Color="#00000000" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                            <Rectangle x:Name="FocusVisualElement" RadiusX="2" RadiusY="2" Margin="1" Stroke="#FF6DBDD1" StrokeThickness="1" Opacity="0" IsHitTestVisible="false" />
+                            <Popup x:Name="Popup">
+                                <Border x:Name="PopupBorder" HorizontalAlignment="Stretch" Height="Auto" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="3">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFFFFFFF" Offset="0" />
+                                            <GradientStop Color="#FFFEFEFE" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <dxreex:AgColumnCountValueControl x:Name="ElementCountControl" Background="White" XStartCount="8" YStartCount="1" XItemOffset="4" YItemOffset="3" HorizontalAlignment="Left" VerticalAlignment="Top" DisplayFormat="{} : {0} " XCountTextBoxLabel="ColumnCount:">
+                                        <dxreex:AgColumnCountValueControl.ItemContentTemplate>
+                                            <DataTemplate>
+                                                <Rectangle Width="20" Height="25" Fill="White" Stroke="Black" StrokeThickness="1" />
+                                            </DataTemplate>
+                                        </dxreex:AgColumnCountValueControl.ItemContentTemplate>
+                                    </dxreex:AgColumnCountValueControl>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--AgColorPickerToggleButtonStyle-->
+        <Style x:Key="AgColorPickerToggleButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Background" Value="#FF1F3B53" />
+            <Setter Property="Foreground" Value="#FF000000" />
+            <Setter Property="Padding" Value="5,2,5,2" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFA3AEB9" Offset="0" />
+                        <GradientStop Color="#FF8399A9" Offset="0.375" />
+                        <GradientStop Color="#FF718597" Offset="0.375" />
+                        <GradientStop Color="#FF617584" Offset="1" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid x:Name="ElementRoot">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="ElementBackgroundGradient1" Storyboard.TargetProperty="Color" To="#FFBDD9F8" />
+                                            <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="ElementBackgroundGradient2" Storyboard.TargetProperty="Color" To="#FFD2E5FA" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="ElementBackgroundGradient1" Storyboard.TargetProperty="Color" To="#FF6FA2DD" />
+                                            <ColorAnimation Duration="0:0:0.01" Storyboard.TargetName="ElementBackgroundGradient2" Storyboard.TargetProperty="Color" To="#FF8FB8E5" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="ElementChecked" Storyboard.TargetProperty="Opacity" To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border HorizontalAlignment="Stretch" Width="Auto" CornerRadius="2,2,2,2">
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                        <GradientStop x:Name="ElementBackgroundGradient1" Color="Transparent" />
+                                        <GradientStop x:Name="ElementBackgroundGradient2" Color="Transparent" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                            <Border x:Name="ElementChecked" HorizontalAlignment="Stretch" Width="Auto" CornerRadius="2,2,2,2" Opacity="0">
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                        <GradientStop Color="#FF6FA2DD" />
+                                        <GradientStop Color="#FF8FB8E5" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                            <Border HorizontalAlignment="Stretch" Margin="0,0,0,0" Width="Auto">
+                                <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--AgDropDownButtonToggleButtonStyle-->
+        <Style x:Key="AgDropDownButtonToggleButtonStyle" TargetType="dxre:AgDropDownButtonToggleButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="dxre:AgDropDownButtonToggleButton">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00" To="MouseOver" />
+                                        <VisualTransition GeneratedDuration="00:00:00" To="Pressed" />
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0" Storyboard.TargetName="hover" Storyboard.TargetProperty="Opacity" To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0" Storyboard.TargetName="hover" Storyboard.TargetProperty="Opacity" To="1" />
+                                            <ColorAnimation Duration="0:0:0" Storyboard.TargetName="Gradient1" Storyboard.TargetProperty="Color" To="#7FFFFFFF" />
+                                            <ColorAnimation Duration="0:0:0" Storyboard.TargetName="Gradient2" Storyboard.TargetProperty="Color" To="#00FFFFFF" />
+                                            <ColorAnimation Duration="0:0:0" Storyboard.TargetName="Gradient3" Storyboard.TargetProperty="Color" To="#FF707070" />
+                                            <ColorAnimation Duration="0:0:0" Storyboard.TargetName="Gradient4" Storyboard.TargetProperty="Color" To="#FF929292" />
+                                            <ColorAnimation Duration="0:0:0" Storyboard.TargetName="Gradient5" Storyboard.TargetProperty="Color" To="#FFA9A9AA" />
+                                            <ColorAnimation Duration="0:0:0" Storyboard.TargetName="Gradient6" Storyboard.TargetProperty="Color" To="#FFBABAB9" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0" Storyboard.TargetName="ElementCheck" Storyboard.TargetProperty="Opacity" To="1" />
+                                            <DoubleAnimation Duration="0:0:0" Storyboard.TargetName="ElementHoverContainer" Storyboard.TargetProperty="Opacity" To="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused" />
+                                    <VisualState x:Name="Unfocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid x:Name="ElementHoverContainer">
+                                <Border Height="Auto" Margin="0,1,0,1" x:Name="hover" Width="Auto" Padding="1,1,1,1" CornerRadius="4,4,4,4" Opacity="0">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                            <GradientStop x:Name="Gradient1" Color="#19000000" />
+                                            <GradientStop x:Name="Gradient2" Color="#00000000" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Border Height="Auto" Width="Auto" CornerRadius="3,3,3,3" Padding="1,1,1,1">
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                                <GradientStop x:Name="Gradient3" Color="#FF7E7E7E" />
+                                                <GradientStop x:Name="Gradient4" Color="#FF9D9D9D" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <Border Height="Auto" Width="Auto" CornerRadius="2,2,2,2" Padding="3,3,3,3">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                                    <GradientStop x:Name="Gradient5" Color="#FFDBDBDB" />
+                                                    <GradientStop x:Name="Gradient6" Color="#FFF7F7F7" Offset="1" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+                                </Border>
+                            </Grid>
+                            <Border Height="Auto" Margin="0,1,0,1" x:Name="ElementCheck" Width="Auto" CornerRadius="4,4,4,4" Padding="1,1,1,1" Opacity="0">
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                        <GradientStop Color="#7FFFFFFF" />
+                                        <GradientStop Color="#00FFFFFF" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Border Height="Auto" Width="Auto" CornerRadius="3,3,3,3" Padding="1,1,1,1">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                            <GradientStop Color="#FF707070" Offset="0" />
+                                            <GradientStop Color="#FF929292" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Border Height="Auto" Width="Auto" CornerRadius="2,2,2,2" Padding="3,3,3,3">
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                                <GradientStop Color="#FFBCBCBD" />
+                                                <GradientStop Color="#FFCFCFCE" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+                                </Border>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--AgColorPickerDropDownButton-->
+        <Style TargetType="dxre:AgColorPickerDropDownButton" x:Key="AgColorPickerDropDownButtonStyle">
+            <Setter Property="Background" Value="#FF1F3B53" />
+            <Setter Property="Foreground" Value="#FF000000" />
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid Background="Transparent">
+                            <VisualStateManager.CustomVisualStateManager>
+                                <dxre:AgColorPickerDropDownButtonVisualStateManager />
+                            </VisualStateManager.CustomVisualStateManager>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00" To="MouseOver" />
+                                        <VisualTransition GeneratedDuration="00:00:00" To="Pressed" />
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="ParentSelectedNormal">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="ArrowBrush" Storyboard.TargetProperty="Color" To="White" />
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="ArrowContainerBrushGradient1" Storyboard.TargetProperty="Color" To="#FF8C8C8B" />
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="ArrowContainerBrushGradient2" Storyboard.TargetProperty="Color" To="#FFA6A6A6" />
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="Delimiter" Storyboard.TargetProperty="Opacity" To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="ArrowBrush" Storyboard.TargetProperty="Color" To="White" />
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="ArrowContainerBrushGradient1" Storyboard.TargetProperty="Color" To="#FF828282" />
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="ArrowContainerBrushGradient2" Storyboard.TargetProperty="Color" To="#FF9B9B9B" />
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="Delimiter" Storyboard.TargetProperty="Opacity" To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="ArrowBrush" Storyboard.TargetProperty="Color" To="White" />
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="ArrowContainerBrushGradient1" Storyboard.TargetProperty="Color" To="#FFBABABB" />
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="ArrowContainerBrushGradient2" Storyboard.TargetProperty="Color" To="#FFCDCDCC" />
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="Delimiter" Storyboard.TargetProperty="Opacity" To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="Arrow" Storyboard.TargetProperty="Opacity" To="0" />
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="CheckedStateArrow" Storyboard.TargetProperty="Opacity" To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked">
+                                        <Storyboard>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused">
+                                        <Storyboard>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle x:Name="Delimiter" Opacity="0" Width="1">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+                                            <GradientStop Color="#FF7E7E7F" Offset="0" />
+                                            <GradientStop Color="#FF9B9B9B" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Border CornerRadius="0,1,1,0">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+                                            <GradientStop x:Name="ArrowContainerBrushGradient1" Offset="0" />
+                                            <GradientStop x:Name="ArrowContainerBrushGradient2" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Grid>
+                                        <Path x:Name="Arrow" Stretch="Fill" Data="F1 M 384,282L 391,282L 388,287L 387,287L 384,282 Z " Height="5" Width="7" Margin="2,0,2,0">
+                                            <Path.Fill>
+                                                <SolidColorBrush x:Name="ArrowBrush" Color="#FF656565" />
+                                            </Path.Fill>
+                                        </Path>
+                                        <Path x:Name="CheckedStateArrow" Stretch="Fill" Data="F1 M 384,282L 391,282L 388,287L 387,287L 384,282 Z " Height="5" Width="7" Margin="2,0,2,0" Fill="Black" Opacity="0" />
+                                    </Grid>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--AgColorPicker-->
+        <ControlTemplate TargetType="dxre:AgColorPicker" x:Key="AgColorPickerTemplate">
+            <Grid>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <Storyboard>
+                                <!--<DoubleAnimation Duration="00:00:00" Storyboard.TargetName="DropDownToggleDelimiter" Storyboard.TargetProperty="Opacity" To="0"/>-->
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="MouseOver" />
+                        <VisualState x:Name="Disabled">
+                            <Storyboard>
+                                <DoubleAnimation Duration="00:00:00" Storyboard.TargetName="DisabledVisualElement" Storyboard.TargetProperty="(UIElement.Opacity)" To=".55" />
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                    <VisualStateGroup x:Name="FocusStates">
+                        <VisualState x:Name="Focused">
+                            <Storyboard>
+                                <!--<DoubleAnimation Duration="00:00:00" Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="(UIElement.Opacity)" To="1"/>-->
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Unfocused" />
+                        <VisualState x:Name="FocusedDropDown">
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames Duration="00:00:00" Storyboard.TargetName="PopupBorder" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                    <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                        <DiscreteObjectKeyFrame.Value>
+                                            <Visibility>Visible</Visibility>
+                                        </DiscreteObjectKeyFrame.Value>
+                                    </DiscreteObjectKeyFrame>
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Border x:Name="ContentPresenterBorder">
+                    <StackPanel Orientation="Horizontal">
+                        <Grid HorizontalAlignment="Stretch">
+                            <dxre:AgDropDownButtonToggleButton x:Name="ElementToggleButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource AgDropDownButtonToggleButtonStyle}" />
+                            <StackPanel Orientation="Horizontal">
+                                <ContentControl x:Name="ElementContent" IsHitTestVisible="False" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Padding="{TemplateBinding Padding}" VerticalAlignment="Center">
+                                </ContentControl>
+                                <!--<Rectangle x:Name="DropDownToggleDelimiter" Width="1" Margin="-10,4,0,4" Fill="Black"/>-->
+                                <dxre:AgColorPickerDropDownButton x:Name="DropDownToggle" Style="{StaticResource AgColorPickerDropDownButtonStyle}" VerticalAlignment="Stretch" Margin="-5,3,2,3" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                <Rectangle x:Name="DisabledVisualElement" RadiusX="3" RadiusY="3" Fill="White" Opacity="0" IsHitTestVisible="false" />
+                <Rectangle x:Name="FocusVisualElement" RadiusX="2" RadiusY="2" Margin="1" Stroke="#FF6DBDD1" StrokeThickness="1" Opacity="0" IsHitTestVisible="false" />
+                <Popup x:Name="Popup">
+                    <Border x:Name="PopupBorder">
+                        <Grid>
+                            <Grid>
+                                <Grid.Effect>
+                                    <DropShadowEffect Color="Black" Opacity="0.4" BlurRadius="4" ShadowDepth="4" />
+                                </Grid.Effect>
+                                <Border Margin="0,0,0,0" Grid.ColumnSpan="1" Background="#FF6E6E6E" CornerRadius="3,3,3,3" Padding="1,1,1,1">
+                                    <Border Background="#FFFFFFFF" CornerRadius="2,2,2,2" />
+                                </Border>
+                                <StackPanel Margin="1,1,1,2" Width="Auto">
+                                    <dxre:AgDropDownButtonToggleButton x:Name="ElementResetButton" Content="{TemplateBinding ResetButtonContent}" ContentTemplate="{TemplateBinding ResetButtonContentTemplate}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Style="{StaticResource AgColorPickerToggleButtonStyle}" Margin="3,3,3,3" IsCheckable="False" />
+                                    <Border Height="1" Background="#FF929292" BorderThickness="0,0,0,0" Width="Auto" Margin="8,0,8,0" />
+                                    <ItemsPresenter Margin="6,5,6,4" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Popup>
+            </Grid>
+        </ControlTemplate>
+        <!--AgRichEditColorPickerContentTemplate-->
+        <DataTemplate x:Key="AgRichEditColorPickerContentTemplate">
+            <Grid>
+                <Border Width="14" Height="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,0" />
+                <Border Width="16" Height="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+        <!--FontColorPickerStyle-->
+        <Style x:Key="FontColorPickerStyle" TargetType="dxre:AgColorComboBox">
+            <Setter Property="Margin" Value="-3,-3,-1,-3" />
+            <Setter Property="Padding" Value="6,7,6,6" />
+            <Setter Property="Background" Value="#FF1F3B53" />
+            <Setter Property="ColumnCount" Value="8" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="TabNavigation" Value="Once" />
+            <Setter Property="Template" Value="{StaticResource AgColorPickerTemplate}" />
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <dxre:AgColumnPanel />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ViewStyle" Value="WithClickButton" />
+            <Setter Property="ResetButtonContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Grid x:Name="popup_item2" Height="Auto" Width="Auto">
+                            <Border HorizontalAlignment="Stretch" Margin="0,0,0,0" Width="Auto" Grid.ColumnSpan="2">
+                                <StackPanel Height="Auto" Width="Auto" Orientation="Horizontal">
+                                    <Border Height="17" Width="17" Margin="0,0,5,0">
+                                        <Border Height="13" x:Name="color_black_Copy1" Width="17" Background="#FF000000" CornerRadius="2,2,2,2" Padding="1,1,1,1" Margin="0,0,0,1">
+                                            <Border CornerRadius="1,1,1,1" Background="#FF9F9F9F" />
+                                        </Border>
+                                    </Border>
+                                    <TextBlock Text="Automatic" TextWrapping="Wrap" Width="Auto" FontSize="13" Height="Auto" Foreground="#FF151515" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ContentTemplate" Value="{StaticResource AgRichEditColorPickerContentTemplate}" />
+        </Style>
+        <!--HighlightTextColorPickerStyle-->
+        <Style x:Key="HighlightTextColorPickerStyle" TargetType="dxre:AgRichEditHighlightTextColorPicker">
+            <Setter Property="Margin" Value="-3,-3,-1,-3" />
+            <Setter Property="Padding" Value="6,7,6,6" />
+            <Setter Property="Background" Value="#FF1F3B53" />
+            <Setter Property="ColumnCount" Value="8" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="TabNavigation" Value="Once" />
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFA3AEB9" Offset="0" />
+                        <GradientStop Color="#FF8399A9" Offset="0.375" />
+                        <GradientStop Color="#FF718597" Offset="0.375" />
+                        <GradientStop Color="#FF617584" Offset="1" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template" Value="{StaticResource AgColorPickerTemplate}" />
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <dxre:AgColumnPanel />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ViewStyle" Value="WithClickButton" />
+            <Setter Property="ResetButtonContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Grid x:Name="popup_item2" Height="Auto" Width="Auto">
+                            <Border HorizontalAlignment="Stretch" Margin="0,0,0,0" Width="Auto" Grid.ColumnSpan="2">
+                                <StackPanel Height="Auto" Width="Auto" Orientation="Horizontal">
+                                    <Border Height="17" Width="17" Margin="0,0,5,0">
+                                        <Border Height="13" x:Name="color_black_Copy1" Width="17" Background="#FF000000" CornerRadius="2,2,2,2" Padding="1,1,1,1" Margin="0,0,0,1">
+                                            <Border CornerRadius="1,1,1,1" Background="#FF9F9F9F" />
+                                        </Border>
+                                    </Border>
+                                    <TextBlock Text="None" TextWrapping="Wrap" Width="Auto" FontSize="13" Height="Auto" Foreground="#FF151515" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ContentTemplate" Value="{StaticResource AgRichEditColorPickerContentTemplate}" />
+        </Style>
+        <!--RichEdit-->
+        <Style TargetType="dxreex:RichEdit" x:Key="CustomRichEditStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="dxreex:RichEdit">
+                        <Border Background="#FF6E6E6E" CornerRadius="3">
+                            <Border Padding="1">
+                                <Grid x:Name="ElementMainGrid" dx:FrameworkElementHelper.IsClipped="True">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Border Background="#FF6E6E6E">
+                                        <StackPanel x:Name="ElementMenuPanel" Orientation="Vertical">
+                                            <dxmnu:AgMenu x:Name="ElementMainMenu" Margin="0,0,0,1" Style="{StaticResource MainMenuTemplate}" CheckAreaDisplayMode="ShowCheckAreaIfChecked" UseItemContainerTemplatesForSubMenu="False">
+                                                <dxmnu:AgMenuItem Header="File">
+                                                    <dxmnu:AgMenuItem Header="Load SandBox" Visibility="Collapsed" Tag="LoadSandBox" />
+                                                    <dxmnu:AgMenuItem Header="Save SandBox" Visibility="Collapsed" Tag="SaveSandBox" />
+                                                    <dxmnu:AgMenuSeparator Visibility="Collapsed" />
+                                                    <dxmnu:AgMenuItem Header="New" Tag="New" />
+                                                    <dxmnu:AgMenuItem Header="Open..." Tag="Open" />
+                                                    <dxmnu:AgMenuItem Header="Save As..." Tag="Save As" />
+                                                    <dxmnu:AgMenuItem Header="Print Preview..." Tag="Print Preview" />
+                                                    <dxmnu:AgMenuItem Header="Print" Tag="Print" />
+                                                    <dxmnu:AgMenuSeparator />
+                                                    <dxmnu:AgMenuItem Header="Export..." Tag="Clipboard" />
+                                                </dxmnu:AgMenuItem>
+                                                <dxmnu:AgMenuItem Header="Edit">
+                                                    <dxmnu:AgMenuItem Header="Undo" Tag="Undo" />
+                                                    <dxmnu:AgMenuItem Header="Redo" Tag="Redo" />
+                                                    <dxmnu:AgMenuSeparator />
+                                                    <dxmnu:AgMenuItem Header="Cut" Tag="Cut Internal Clipboard" />
+                                                    <dxmnu:AgMenuItem Header="Copy" Tag="Copy Internal Clipboard" />
+                                                    <dxmnu:AgMenuItem Header="Paste" Tag="Paste Internal Clipboard" />
+                                                    <dxmnu:AgMenuItem Header="Delete" Tag="Delete" />
+                                                    <dxmnu:AgMenuItem Header="Select All" Tag="SelectAll" />
+                                                    <dxmnu:AgMenuSeparator />
+                                                    <dxmnu:AgMenuItem Header="Find..." Tag="Find" />
+                                                    <dxmnu:AgMenuItem Header="Replace..." Tag="Replace" />
+                                                    <dxmnu:AgMenuSeparator />
+                                                    <dxmnu:AgMenuItem Header="Bookmark..." Tag="Bookmark" />
+                                                    <dxmnu:AgMenuItem Header="Hyperlink..." Tag="Hyperlink" />
+                                                </dxmnu:AgMenuItem>
+                                                <dxmnu:AgMenuItem x:Name="ElementViewSubItem" Header="View">
+                                                    <dxmnu:AgMenuItem Header="Draft" Tag="ViewDraft" IsCheckable="True" IsRadioItem="True" />
+                                                    <dxmnu:AgMenuItem Header="Simple" Tag="ViewSimple" IsCheckable="True" IsRadioItem="True" />
+                                                    <dxmnu:AgMenuItem Header="Print" Tag="ViewPrint" IsCheckable="True" IsRadioItem="True" />
+                                                    <!--<dxmnu:AgMenuItem Header="Reading" Tag="Reading" IsCheckable="True" IsRadioItem="True"/>-->
+                                                </dxmnu:AgMenuItem>
+                                                <dxmnu:AgMenuItem Header="Insert">
+                                                    <dxmnu:AgMenuItem Header="Picture..." Tag="Insert Picture" />
+                                                    <dxmnu:AgMenuItem Header="Symbol..." Tag="Insert Symbol" />
+                                                    <dxmnu:AgMenuItem Header="Header" Tag="Edit Page Header" />
+                                                    <dxmnu:AgMenuItem Header="Footer" Tag="Edit Page Footer" />
+                                                    <dxmnu:AgMenuItem Header="Table" Tag="Insert Table" />
+                                                    <!--<dxmnu:AgMenuItem Header="Field">
+                                                    <dxmnu:AgMenuItem Tag="Insert Field"  Header="Date"/>
+                                                    <dxmnu:AgMenuItem Tag="Insert Field"  Header="CreateDate"/>
+                                                </dxmnu:AgMenuItem>-->
+                                                </dxmnu:AgMenuItem>
+                                                <dxmnu:AgMenuItem Header="Mail Merge">
+                                                    <dxmnu:AgMenuItem Header="Insert Merge Field" x:Name="InsertMergeFieldMenuItem" />
+                                                    <dxmnu:AgMenuItem Tag="View Merged Data" Header="View Merged Data" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Tag="Show All Field Codes" Header="Show All Field Codes" />
+                                                    <dxmnu:AgMenuItem Tag="Show All Field Results" Header="Show All Field Results" />
+                                                    <dxmnu:AgMenuItem Tag="Next Record" Header="Next Record" />
+                                                    <dxmnu:AgMenuItem Tag="Previous Record" Header="Previous Record" />
+                                                    <dxmnu:AgMenuItem Tag="Export" Header="Export..." />
+                                                </dxmnu:AgMenuItem>
+                                                <dxmnu:AgMenuItem Header="Format">
+                                                    <dxmnu:AgMenuItem Header="Font..." Tag="Font Format" />
+                                                    <dxmnu:AgMenuItem Header="Paragraph..." Tag="Paragraph Format" />
+                                                </dxmnu:AgMenuItem>
+                                                <dxmnu:AgMenuItem Header="Tools">
+                                                    <dxmnu:AgMenuItem Header="Customize" x:Name="ElementCustomizationMenuItem">
+                                                    </dxmnu:AgMenuItem>
+                                                    <dxmnu:AgMenuItem Header="Check Spelling..." Tag="Check Spelling" Click="AgMenuItem_Click" />
+                                                    <dxmnu:AgMenuItem Header="Check Spelling As You Type" Tag="Check Spelling As You Type" IsCheckable="True" />
+                                                </dxmnu:AgMenuItem>
+                                                <dxmnu:AgMenuItem Header="Table">
+                                                    <dxmnu:AgMenuItem Header="Insert Row Above" Tag="Insert Row Above" />
+                                                    <dxmnu:AgMenuItem Header="Insert Row Below" Tag="Insert Row Below" />
+                                                </dxmnu:AgMenuItem>
+                                                <dxmnu:AgMenuItem Header="Header &amp; Footer">
+                                                    <dxmnu:AgMenuItem Header="Go to Header" Tag="Go to Page Header" />
+                                                    <dxmnu:AgMenuItem Header="Go to Footer" Tag="Go to Page Footer" />
+                                                    <dxmnu:AgMenuItem Header="Show Previous" Tag="Go to Previous" />
+                                                    <dxmnu:AgMenuItem Header="Show Next" Tag="Go to Next" />
+                                                    <dxmnu:AgMenuItem Header="Link to Previous" Tag="Link To Previous" IsCheckable="True" />
+                                                    <dxmnu:AgMenuSeparator />
+                                                    <dxmnu:AgMenuItem Header="Different First Page" Tag="Different First Page" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Header="Different Odd &amp; Even Pages" Tag="Different Odd And Even Pages" IsCheckable="True" />
+                                                    <dxmnu:AgMenuSeparator />
+                                                    <dxmnu:AgMenuItem Header="Close Header &amp; Footer" Tag="Close Header or Footer" />
+                                                </dxmnu:AgMenuItem>
+                                            </dxmnu:AgMenu>
+                                            <StackPanel Orientation="Horizontal">
+                                                <!--<Border Height="1"/>-->
+                                                <dxmnu:AgMenu x:Name="ElementToolBar" Margin="0,0,0,1" OpenSubMenuOnClick="True" Tag="Common Toolbar" HorizontalAlignment="Left" Style="{StaticResource MenuTemplate}">
+                                                    <dxmnu:AgMenuItem Tag="New" />
+                                                    <dxmnu:AgMenuItem Tag="Open" />
+                                                    <dxmnu:AgMenuItem Tag="Save As" />
+                                                    <dxmnu:AgMenuSeparator Tag="Separator 1" />
+                                                    <dxmnu:AgMenuItem Tag="Cut Internal Clipboard" />
+                                                    <dxmnu:AgMenuItem Tag="Copy Internal Clipboard" />
+                                                    <dxmnu:AgMenuItem Tag="Paste Internal Clipboard" />
+                                                    <dxmnu:AgMenuSeparator Tag="Separator 2" />
+                                                    <dxmnu:AgMenuItem Tag="Undo" />
+                                                    <dxmnu:AgMenuItem Tag="Redo" />
+                                                    <dxmnu:AgMenuSeparator Tag="Separator 3" />
+                                                    <dxmnu:AgMenuItem Tag="Find" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Tag="Replace" IsCheckable="True" />
+
+                                                    <!--<dxmnu:AgMenuItem Tag="FileSave"/>-->
+                                                    <dxmnu:AgMenuSeparator Tag="Separator 4" />
+                                                    <dxmnu:AgMenuItem Tag="Align Left" IsCheckable="True" IsChecked="True" />
+                                                    <dxmnu:AgMenuItem Tag="Align Center" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Tag="Align Right" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Tag="Align Justify" IsCheckable="True" />
+                                                    <dxmnu:AgMenuSeparator Tag="Separator 5" />
+                                                    <dxmnu:AgMenuItem Tag="Increase Indent" />
+                                                    <dxmnu:AgMenuItem Tag="Decrease Indent" />
+                                                    <dxmnu:AgMenuSeparator Tag="Separator 6" />
+                                                    <dxmnu:AgMenuItem Tag="Numbering List" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Tag="Bullet List" IsCheckable="True" IsRadioItem="False" />
+                                                    <dxmnu:AgMenuItem Tag="Multilevel List" IsCheckable="True" IsRadioItem="False" />
+                                                    <dxmnu:AgMenuSeparator Tag="Separator 7" />
+                                                    <dxmnu:AgMenuItem Tag="Paragraph Format" />
+                                                    <dxmnu:AgMenuSeparator Tag="Separator 8" />
+                                                    <dxmnu:AgMenuItem Tag="Show White Space" IsCheckable="True" />
+                                                    <dxmnu:AgMenuSeparator Tag="Separator 9" />
+                                                    <dxmnu:AgMenuItem x:Name="ElementColumnCountItem" Tag="Column Count" ClosePopupOnClick="False">
+                                                        <dxmnu:AgMenuItem.SubMenuStyle>
+                                                            <Style TargetType="dxmnu:AgPopupMenu">
+                                                                <Setter Property="Template">
+                                                                    <Setter.Value>
+                                                                        <ControlTemplate TargetType="dxmnu:AgPopupMenu">
+                                                                            <Grid>
+                                                                                <Grid>
+                                                                                    <Grid.Effect>
+                                                                                        <DropShadowEffect Color="Black" Opacity="0.4" BlurRadius="4" ShadowDepth="4" />
+                                                                                    </Grid.Effect>
+                                                                                    <Border Background="Transparent" CornerRadius="3,3,3,3" />
+                                                                                    <!--<dxmnu:AgSubMenuDefaultStyleHelper Background="White"/>-->
+                                                                                    <Border Background="Transparent" CornerRadius="2,2,2,2" Margin="1,1,1,1">
+                                                                                        <dxmnu:AgMenuScrollViewer x:Name="ItemsPresenterContainer" ScrollButtonClickMode="Click" Margin="0,0,0,1">
+                                                                                            <ItemsPresenter />
+                                                                                        </dxmnu:AgMenuScrollViewer>
+                                                                                    </Border>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </ControlTemplate>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                                <Setter Property="ItemContainerTemplates">
+                                                                    <Setter.Value>
+                                                                        <dxmnu:AgMenuTemplateList>
+                                                                            <dxmnu:AgMenuTemplateListItem Key="AgMenuItem">
+                                                                                <dxmnu:AgMenuTemplateListItem.Template>
+                                                                                    <ControlTemplate TargetType="dxmnu:AgMenuItem">
+                                                                                        <ContentControl Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" />
+                                                                                    </ControlTemplate>
+                                                                                </dxmnu:AgMenuTemplateListItem.Template>
+                                                                            </dxmnu:AgMenuTemplateListItem>
+                                                                        </dxmnu:AgMenuTemplateList>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                                <Setter Property="PopupOffset" Value="0,0,0,0" />
+                                                            </Style>
+                                                        </dxmnu:AgMenuItem.SubMenuStyle>
+
+                                                        <dxmnu:AgMenuItem Margin="0" ClosePopupOnClick="False">
+                                                            <dxmnu:AgMenuItem.Header>
+                                                                <dxreex:AgColumnCountValueEditorControl x:Name="ElementColumnCountPicker" />
+                                                            </dxmnu:AgMenuItem.Header>
+
+                                                        </dxmnu:AgMenuItem>
+                                                    </dxmnu:AgMenuItem>
+                                                </dxmnu:AgMenu>
+                                                <dxmnu:AgMenu x:Name="ElementToolBarHeadersFooters" Margin="0,0,0,1" Tag="Header &amp; Footer Toolbar" HorizontalAlignment="Left" Style="{StaticResource MenuTemplate}">
+                                                    <dxmnu:AgMenuItem Tag="Go to Page Header" />
+                                                    <dxmnu:AgMenuItem Tag="Go to Page Footer" />
+                                                    <dxmnu:AgMenuItem Tag="Go to Previous" />
+                                                    <dxmnu:AgMenuItem Tag="Go to Next" />
+                                                    <dxmnu:AgMenuItem Tag="Link To Previous" IsCheckable="True" />
+                                                    <dxmnu:AgMenuSeparator />
+                                                    <dxmnu:AgMenuItem Tag="Different First Page" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Tag="Different Odd And Even Pages" IsCheckable="True" />
+                                                    <dxmnu:AgMenuSeparator />
+                                                    <dxmnu:AgMenuItem Tag="Close Header or Footer" />
+                                                </dxmnu:AgMenu>
+                                            </StackPanel>
+                                            <!--<Border Height="1"/>-->
+                                            <StackPanel Orientation="Horizontal">
+                                                <dxmnu:AgMenu x:Name="ElementToolBar2" Margin="0,0,0,1" Tag="Editor Toolbar" HorizontalAlignment="Left" Style="{StaticResource MenuTemplate}">
+                                                    <dxmnu:AgMenuItem Tag="TEST" Header="TEST" Click="AgMenuItem_Click" />
+                                                    <dxmnu:AgMenuItem Tag="Check Spelling" />
+                                                    <dxmnu:AgMenuItem Tag="Check Spelling As You Type" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Tag="Insert Symbol" />
+                                                    <dxmnu:AgMenuItem Tag="Insert Picture" />
+                                                    <dxmnu:AgMenuItem Tag="Insert Table" />
+                                                    <dxmnu:AgMenuItem Tag="Edit Page Header" />
+                                                    <dxmnu:AgMenuItem Tag="Edit Page Footer" />
+                                                    <dxmnu:AgMenuSeparator Tag="Separator 1" />
+                                                    <dxmnu:AgMenuItem Tag="Font Format" Visibility="Collapsed" />
+                                                    <dxmnu:AgMenuItem Tag="Bold" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Tag="Italic" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Tag="Underline" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Tag="Double Underline" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Tag="Strikeout" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Tag="Double Strikeout" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Tag="Subscript" Group="FontScript" IsCheckable="True" />
+                                                    <dxmnu:AgMenuItem Tag="Superscript" Group="FontScript" IsCheckable="True" />
+                                                    <dxmnu:AgMenuSeparator Tag="Separator 2" />
+                                                    <dxmnu:AgMenuItem Tag="Font">
+                                                        <dxmnu:AgMenuItem.Header>
+                                                            <dxre:AgFontComboBox UseUnspecifyed="False" x:Name="ElementFontFamily" Width="150" Height="23" />
+                                                        </dxmnu:AgMenuItem.Header>
+                                                    </dxmnu:AgMenuItem>
+                                                    <dxmnu:AgMenuItem Tag="Font Size Increase" Visibility="Collapsed" />
+                                                    <dxmnu:AgMenuItem Tag="Font Size Decrease" Visibility="Collapsed" />
+                                                    <dxmnu:AgMenuItem Tag="Font Size" Margin="2,0,0,0">
+                                                        <dxmnu:AgMenuItem.Header>
+                                                            <dxre:EditableComboBox x:Name="ElementFontSize" ItemContainerStyle="{StaticResource ListBoxItemStyle}" Width="50" Height="23" />
+                                                        </dxmnu:AgMenuItem.Header>
+                                                    </dxmnu:AgMenuItem>
+                                                    <dxmnu:AgMenuSeparator Tag="Separator 3" />
+                                                    <dxmnu:AgMenuItem Tag="Font Color" Margin="2,0,0,0">
+                                                        <dxmnu:AgMenuItem.Header>
+                                                            <dxre:AgColorComboBox x:Name="ElementFontColorPicker" Style="{StaticResource FontColorPickerStyle}" ViewStyle="WithClickButton" />
+                                                        </dxmnu:AgMenuItem.Header>
+                                                    </dxmnu:AgMenuItem>
+                                                    <dxmnu:AgMenuItem Tag="Highlight Color" Margin="2,0,0,0">
+                                                        <dxmnu:AgMenuItem.Header>
+                                                            <dxre:AgRichEditHighlightTextColorPicker x:Name="ElementHighlightColorPicker" ViewStyle="WithCheckButton" Style="{StaticResource HighlightTextColorPickerStyle}" />
+                                                        </dxmnu:AgMenuItem.Header>
+                                                    </dxmnu:AgMenuItem>
+                                                    <dxmnu:AgMenuSeparator Tag="Separator 4" />
+                                                    <dxmnu:AgMenuItem Tag="Style Name">
+                                                        <dxmnu:AgMenuItem.Header>
+                                                            <dxre:AgRichEditStyleEdit x:Name="ElementStyle" Width="150" Height="23" />
+                                                        </dxmnu:AgMenuItem.Header>
+                                                    </dxmnu:AgMenuItem>
+                                                    <!--<dxmnu:AgMenuSeparator/>-->
+                                                </dxmnu:AgMenu>
+                                                <dxmnu:AgMenu x:Name="ElementToolBarTables" Margin="0,0,0,1" Tag="Tables Toolbar" HorizontalAlignment="Left" Style="{StaticResource MenuTemplate}">
+                                                    <dxmnu:AgMenuItem Tag="Insert Row Above" />
+                                                    <dxmnu:AgMenuItem Tag="Insert Row Below" />
+                                                </dxmnu:AgMenu>
+                                            </StackPanel>
+                                            <!--<Border Height="1"/>-->
+                                        </StackPanel>
+                                    </Border>
+                                    <dxre:RichEditControl x:Name="ElementRich" Grid.Row="1" />
+                                    <Border BorderThickness="0,1,0,0" BorderBrush="#FF6E6E6E" Grid.Row="2">
+                                        <Border Height="29" Width="Auto" CornerRadius="0,0,2,2" Padding="1,0,1,0">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                                    <GradientStop Color="#FFDEDEDE" Offset="0" />
+                                                    <GradientStop Color="#FFF1F1F1" Offset="1" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <Grid>
+                                                <StackPanel x:Name="PageCountPanel" Orientation="Horizontal" HorizontalAlignment="Left">
+                                                    <Border x:Name="spacer_Copy11" Width="12" Height="29" />
+                                                    <TextBlock Text="Pages: " FontSize="13" Foreground="#FF656565" VerticalAlignment="Center" />
+                                                    <dxreex:CurrentPageVisualizer x:Name="ElementCurrentPageIndex" dx:StyleManager.ApplyApplicationTheme="True" VerticalAlignment="Center" Height="23" FontSize="13" Width="50" Foreground="#FF656565" VerticalContentAlignment="Center" MaxLength="4" />
+                                                    <TextBlock Text=" of " FontSize="13" Foreground="#FF656565" VerticalAlignment="Center" />
+                                                    <dxreex:PageCountVisualizer x:Name="ElementPageCount" FontSize="13" Foreground="#FF656565" VerticalAlignment="Center" Margin="0,0,4,0" />
+                                                    <Grid x:Name="ElementCountUnit" VerticalAlignment="Center" Height="11" Width="11" Cursor="Hand" Background="Transparent">
+                                                        <Path Stretch="Fill" Data="F1 M 384,282L 391,282L 388,287L 387,287L 384,282 Z " Height="5" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="7">
+                                                            <Path.Fill>
+                                                                <SolidColorBrush x:Name="ArrowBackground" Color="#FF656565" />
+                                                            </Path.Fill>
+                                                        </Path>
+                                                    </Grid>
+                                                </StackPanel>
+                                                <StackPanel Height="Auto" x:Name="menu_container3" Width="Auto" Orientation="Horizontal" HorizontalAlignment="Right" Visibility="Collapsed">
+                                                    <Grid Height="Auto" Width="2" Margin="2,4,1,4" x:Name="separator5">
+                                                        <Border x:Name="separator6" Width="1" HorizontalAlignment="Left">
+                                                            <Border.Background>
+                                                                <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                                                                    <GradientStop Color="#FF939393" />
+                                                                    <GradientStop Color="#FFC1C1C1" Offset="1" />
+                                                                </LinearGradientBrush>
+                                                            </Border.Background>
+                                                        </Border>
+                                                        <Border HorizontalAlignment="Right" Width="1">
+                                                            <Border.Background>
+                                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                                    <GradientStop Color="#19FDFDFD" />
+                                                                    <GradientStop Color="#19FDFDFD" Offset="1" />
+                                                                    <GradientStop Color="#FFFDFDFD" Offset="0.5" />
+                                                                </LinearGradientBrush>
+                                                            </Border.Background>
+                                                        </Border>
+                                                    </Grid>
+                                                    <Border x:Name="spacer_Copy12" Width="12" Height="29" />
+                                                    <dxreex:ZoomComboBox x:Name="ElementZoom" FontSize="13" ItemContainerStyle="{StaticResource ListBoxItemStyle}" Foreground="#FF656565" VerticalAlignment="Center" Width="54">
+                                                        <sys:String>500%</sys:String>
+                                                        <sys:String>200%</sys:String>
+                                                        <sys:String>150%</sys:String>
+                                                        <sys:String>100%</sys:String>
+                                                        <sys:String>75%</sys:String>
+                                                        <sys:String>50%</sys:String>
+                                                        <sys:String>25%</sys:String>
+                                                        <sys:String>10%</sys:String>
+                                                    </dxreex:ZoomComboBox>
+                                                    <Border x:Name="spacer_Copy3" Width="12" Height="29" />
+                                                    <Button x:Name="ElementZoomOut" Cursor="Hand">
+                                                        <Button.Template>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Grid Height="13" x:Name="icon_reduce_page" Width="11">
+                                                                    <Path Stretch="Fill" Data="F1 M 411,282L 418,282C 419.104,282 420,282.895 420,284L 420,292C 420,293.105 419.104,294 418,294L 411,294C 409.895,294 409,293.105 409,292L 409,284C 409,282.895 409.895,282 411,282 Z " Height="12" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="11">
+                                                                        <Path.Fill>
+                                                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                                                <GradientStop Color="#00FFFFFF" />
+                                                                                <GradientStop Color="#7FFFFFFF" Offset="1" />
+                                                                            </LinearGradientBrush>
+                                                                        </Path.Fill>
+                                                                    </Path>
+                                                                    <Path Stretch="Fill" Data="F1 M 411,282L 418,282C 418.552,282 419,282.448 419,283L 419,292C 419,292.552 418.552,293 418,293L 411,293C 410.448,293 410,292.552 410,292L 410,283C 410,282.448 410.448,282 411,282 Z " Height="11" HorizontalAlignment="Center" VerticalAlignment="Center" Width="9">
+                                                                        <Path.Fill>
+                                                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                                                <GradientStop Color="#FF8B8B8B" />
+                                                                                <GradientStop Color="#FF6E6E6E" Offset="1" />
+                                                                            </LinearGradientBrush>
+                                                                        </Path.Fill>
+                                                                    </Path>
+                                                                    <Rectangle Stretch="Fill" Fill="#FFF1F1F1" Height="9" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="7" />
+                                                                    <Rectangle Stretch="Fill" Fill="#FF6E6E6E" Height="1" HorizontalAlignment="Center" Margin="0,4,0,0" VerticalAlignment="Top" Width="5" />
+                                                                    <Rectangle Stretch="Fill" Fill="#FF6E6E6E" HorizontalAlignment="Center" Margin="0,6,0,6" Width="5" />
+                                                                    <Rectangle Stretch="Fill" Fill="#FF6E6E6E" Height="1" HorizontalAlignment="Center" Margin="0,0,0,4" VerticalAlignment="Bottom" Width="5" />
+                                                                </Grid>
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button>
+                                                    <Border x:Name="spacer_Copy2" Width="3" Height="29" />
+                                                    <Slider x:Name="ElementZoomSlider" Width="130" Minimum="0.1" Maximum="5" Value="1" SmallChange="0.1" dx:StyleManager.ApplyApplicationTheme="True" />
+                                                    <Border x:Name="spacer_Copy" Width="3" Height="29" />
+                                                    <Button x:Name="ElementZoomIn" Cursor="Hand">
+                                                        <Button.Template>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Grid Height="17" HorizontalAlignment="Stretch" x:Name="icon_increase_page" VerticalAlignment="Stretch" Width="15">
+                                                                    <Path Stretch="Fill" Data="F1 M 395,282L 406,282C 407.104,282 408,282.895 408,284L 408,296C 408,297.105 407.104,298 406,298L 395,298C 393.895,298 393,297.105 393,296L 393,284C 393,282.895 393.895,282 395,282 Z " Height="16" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="15">
+                                                                        <Path.Fill>
+                                                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                                                <GradientStop Color="#00FFFFFF" />
+                                                                                <GradientStop Color="#7FFFFFFF" Offset="1" />
+                                                                            </LinearGradientBrush>
+                                                                        </Path.Fill>
+                                                                    </Path>
+                                                                    <Path Stretch="Fill" Data="F1 M 395,282L 406,282C 406.552,282 407,282.448 407,283L 407,296C 407,296.552 406.552,297 406,297L 395,297C 394.448,297 394,296.552 394,296L 394,283C 394,282.448 394.448,282 395,282 Z " Height="15" Width="13">
+                                                                        <Path.Fill>
+                                                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                                                <GradientStop Color="#FF8B8B8B" />
+                                                                                <GradientStop Color="#FF6E6E6E" Offset="1" />
+                                                                            </LinearGradientBrush>
+                                                                        </Path.Fill>
+                                                                    </Path>
+                                                                    <Rectangle Stretch="Fill" Fill="#FFF1F1F1" Height="13" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="11" />
+                                                                    <Rectangle Stretch="Fill" Fill="#FF6E6E6E" Height="1" HorizontalAlignment="Center" Margin="3,5,3,0" VerticalAlignment="Top" Width="7" />
+                                                                    <Rectangle Stretch="Fill" Fill="#FF6E6E6E" Height="1" HorizontalAlignment="Center" Margin="3,7,3,0" VerticalAlignment="Top" Width="7" />
+                                                                    <Rectangle Stretch="Fill" Fill="#FF6E6E6E" Height="1" HorizontalAlignment="Center" Margin="0,0,0,7" VerticalAlignment="Bottom" Width="7" />
+                                                                    <Rectangle Stretch="Fill" Fill="#FF6E6E6E" Height="1" HorizontalAlignment="Center" Margin="3,0,3,5" VerticalAlignment="Bottom" Width="7" />
+                                                                </Grid>
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button>
+                                                    <Border x:Name="spacer_Copy1" Width="12" Height="29" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="White" Width="800">
+        <dxreex:RichEdit HorizontalAlignment="Left" Margin="0,4,0,0" Name="richEdit1" VerticalAlignment="Top" Style="{StaticResource CustomRichEditStyle}" Height="360" />
+    </Grid>
+</UserControl>
