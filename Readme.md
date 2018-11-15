@@ -1,3 +1,9 @@
+<!-- default file list -->
+*Files to look at*:
+
+* [MainPage.xaml](./CS/AgRichEditTemplate/MainPage.xaml) (VB: [MainPage.xaml](./VB/AgRichEditTemplate/MainPage.xaml))
+* [MainPage.xaml.cs](./CS/AgRichEditTemplate/MainPage.xaml.cs) (VB: [MainPage.xaml](./VB/AgRichEditTemplate/MainPage.xaml))
+<!-- default file list end -->
 # How to change character and paragraph formatting
 
 
