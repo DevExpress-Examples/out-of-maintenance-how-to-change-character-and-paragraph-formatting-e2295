@@ -1,3 +1,9 @@
+<!-- default file list -->
+*Files to look at*:
+
+* [MainPage.xaml](./CS/DXRichEdit_SL_Formatting/MainPage.xaml) (VB: [MainPage.xaml.vb](./VB/DXRichEdit_SL_Formatting/MainPage.xaml.vb))
+* [MainPage.xaml.cs](./CS/DXRichEdit_SL_Formatting/MainPage.xaml.cs) (VB: [MainPage.xaml.vb](./VB/DXRichEdit_SL_Formatting/MainPage.xaml.vb))
+<!-- default file list end -->
 # How to change character and paragraph formatting
 
 
